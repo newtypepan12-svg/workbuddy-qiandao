@@ -1,32 +1,42 @@
 # WorkBuddy 签到
 
-云端每日自动打卡：由 **GitHub Actions** 每天早上 **08:00（北京时间）** 自动执行，**不需要开着你的电脑**。
+自动领取腾讯 **WorkBuddy**「Buddy 加油站」每日积分（约 100 分，连签有额外奖励）。
+
+由 **GitHub Actions** 每天 **09:05（北京时间）** 在云端执行，**电脑不用开机**。
 
 ## 原理
 
 ```text
-GitHub Actions (cron 08:00 CST)
-        → scripts/checkin.py
-        → data/checkins.json  (提交回仓库)
-        → GitHub Pages 展示连续天数 / 日历
+GitHub Secrets 存 WorkBuddy accessToken
+        ↓
+每天 09:05 Actions 运行 scripts/checkin.py
+        ↓
+调用官方签到接口（与桌面客户端相同）
+        ↓
+结果写入 data/ 并由 Pages 统计页展示
 ```
 
-## 功能
+接口：
+- 状态：`POST /v2/billing/meter/checkin-activity-status`
+- 领取：`POST /v2/billing/meter/daily-checkin`
 
-- 每日自动打卡（Actions 定时）
-- 连续天数、累计次数
-- 日历与最近记录
-- 支持在 GitHub 上手动运行（workflow_dispatch）
+## 一次性配置（必须）
 
-## 手动跑一次
+1. 打开本机登录态文件（登录过 WorkBuddy 桌面端后会存在）：
+   - Windows：`%LOCALAPPDATA%\CodeBuddyExtension\Data\Public\auth\workbuddy-desktop.info`
+   - macOS：`~/Library/Application Support/CodeBuddyExtension/Data/Public/auth/workbuddy-desktop.info`
+2. 复制 `auth.accessToken`、`account.uid`、`auth.domain`（不要发给别人、不要提交到仓库）
+3. 打开仓库 **Settings → Secrets and variables → Actions**，新建：
 
-仓库页 → **Actions** → **Daily Check-in** → **Run workflow**
+| Name | Value |
+|------|--------|
+| `WORKBUDDY_ACCESS_TOKEN` | `auth.accessToken` 整段 |
+| `WORKBUDDY_UID` | `account.uid` |
+| `WORKBUDDY_DOMAIN` | 一般是 `copilot.tencent.com` |
 
-## 查看统计
+4. **Actions** → **WorkBuddy Daily Check-in** → **Run workflow** 试跑一次
 
-1. 仓库 **Settings → Pages**
-2. Source 选 `Deploy from a branch`，分支 `main`，目录 `/ (root)`
-3. 保存后访问：`https://newtypepan12-svg.github.io/workbuddy-qiandao/`
+> `accessToken` 等同账号登录态。仓库建议设为 **Private**；token 过期后重新登录 WorkBuddy，再更新 Secret 即可，不用改代码。
 
 ## 本地调试
 
@@ -34,7 +44,15 @@ GitHub Actions (cron 08:00 CST)
 python scripts/checkin.py
 ```
 
-## 数据
+本机会自动读桌面端登录态，不需要配 Secret。
 
-- 打卡记录：`data/checkins.json`
-- 最近一次运行：`data/last-run.json`
+## 查看统计
+
+- 工作流日志 / Summary 看当天结果
+- Pages：`https://newtypepan12-svg.github.io/workbuddy-qiandao/`（连续天数、日历）
+
+## 说明
+
+- 幂等：今日已签到会直接返回成功，不会重复领
+- 仅操作你自己的账号，等价于每天点一次「领取」
+- 非官方脚本，接口可能变动；与腾讯无隶属关系，使用风险自负

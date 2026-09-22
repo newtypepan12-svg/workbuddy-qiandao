@@ -1,22 +1,22 @@
-name: Daily Check-in
+name: WorkBuddy Daily Check-in
 
 on:
   schedule:
-    # 每天 08:00（Asia/Shanghai）= 00:00 UTC
-    - cron: "0 0 * * *"
+    # 每天 09:05（Asia/Shanghai）= 01:05 UTC
+    - cron: "5 1 * * *"
   workflow_dispatch: {}
 
 permissions:
   contents: write
 
 concurrency:
-  group: daily-checkin
+  group: workbuddy-checkin
   cancel-in-progress: false
 
 jobs:
   checkin:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -26,29 +26,37 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Run check-in
-        id: checkin
-        run: |
-          python scripts/checkin.py
-          echo "streak=$(python -c "import json;print(json.load(open('data/last-run.json'))['streak'])")" >> "$GITHUB_OUTPUT"
-          echo "total=$(python -c "import json;print(json.load(open('data/last-run.json'))['total'])")" >> "$GITHUB_OUTPUT"
-          echo "date=$(python -c "import json;print(json.load(open('data/last-run.json'))['date'])")" >> "$GITHUB_OUTPUT"
+      - name: Run WorkBuddy check-in
+        env:
+          WORKBUDDY_ACCESS_TOKEN: ${{ secrets.WORKBUDDY_ACCESS_TOKEN }}
+          WORKBUDDY_UID: ${{ secrets.WORKBUDDY_UID }}
+          WORKBUDDY_DOMAIN: ${{ secrets.WORKBUDDY_DOMAIN }}
+        run: python scripts/checkin.py
 
-      - name: Commit if changed
+      - name: Commit history
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add data/checkins.json data/last-run.json
           if git diff --staged --quiet; then
-            echo "No changes to commit"
+            echo "No history change"
           else
-            git commit -m "checkin: ${{ steps.checkin.outputs.date }} (streak ${{ steps.checkin.outputs.streak }})"
+            git commit -m "checkin: $(python -c "import json;print(json.load(open('data/last-run.json')).get('date',''))")"
             git push
           fi
 
       - name: Summary
         run: |
-          echo "### WorkBuddy 签到" >> "$GITHUB_STEP_SUMMARY"
-          echo "- 日期: ${{ steps.checkin.outputs.date }}" >> "$GITHUB_STEP_SUMMARY"
-          echo "- 连续: ${{ steps.checkin.outputs.streak }} 天" >> "$GITHUB_STEP_SUMMARY"
-          echo "- 累计: ${{ steps.checkin.outputs.total }} 天" >> "$GITHUB_STEP_SUMMARY"
+          python <<'PY'
+          import json, os, pathlib
+          p = pathlib.Path("data/last-run.json")
+          d = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+          summary = pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"])
+          with summary.open("a", encoding="utf-8") as f:
+              f.write("### WorkBuddy 签到\n")
+              f.write(f"- 日期: {d.get('date')}\n")
+              f.write(f"- 状态: {d.get('status')}\n")
+              f.write(f"- 连续: {d.get('streak')} 天\n")
+              f.write(f"- 累计: {d.get('total')} 天\n")
+              f.write(f"- 说明: {d.get('report')}\n")
+          PY
