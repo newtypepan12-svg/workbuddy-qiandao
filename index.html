@@ -366,23 +366,14 @@
 
     async function loadData() {
       try {
-        const res = await fetch("../data/checkins.json", { cache: "no-store" });
+        const res = await fetch("./data/checkins.json", { cache: "no-store" });
         if (!res.ok) throw new Error(String(res.status));
         const data = await res.json();
         state.checkins = new Set(data.checkins || []);
         state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
       } catch (e) {
-        // GitHub Pages 根路径回退
-        try {
-          const res = await fetch("./data/checkins.json", { cache: "no-store" });
-          if (!res.ok) throw new Error(String(res.status));
-          const data = await res.json();
-          state.checkins = new Set(data.checkins || []);
-          state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
-        } catch (e2) {
-          document.getElementById("historyList").innerHTML =
-            '<div class="empty-tip">无法加载数据。若使用 GitHub Pages，请从仓库根目录打开 index.html，或等待 Actions 完成首次打卡。</div>';
-        }
+        document.getElementById("historyList").innerHTML =
+          '<div class="empty-tip">无法加载 data/checkins.json，请确认 Pages 已部署且数据文件已提交。</div>';
       }
       const today = shanghaiToday();
       state.view = new Date(today.getFullYear(), today.getMonth(), 1);
