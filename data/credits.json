@@ -1,0 +1,27 @@
+{
+  "updatedAt": "2026-09-22T11:58:30+08:00",
+  "source": "workbuddy-checkin-activity",
+  "today_credit": 100,
+  "daily_credit": 100,
+  "activity_total_credits": 500,
+  "streak_bonus_credit": 0,
+  "streak_bonus_days": 0,
+  "streak": 5,
+  "checkin_days": 1,
+  "checkin_dates": [
+    "2026-09-22",
+    "2026-09-21",
+    "2026-09-20",
+    "2026-09-17",
+    "2026-09-16"
+  ],
+  "week_checkin_days": 2,
+  "season": 9,
+  "activity_name": "高校新生攻略",
+  "theme_name": "Buddy加油站",
+  "start_time": "2026-09-16 00:00:00",
+  "end_time": "2026-09-29 23:59:59",
+  "base_credit": null,
+  "bonus_credit": null,
+  "platform_reward": null
+}

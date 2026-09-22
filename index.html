@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>WorkBuddy 签到</title>
+  <title>WorkBuddy 积分与签到</title>
   <style>
     :root {
       --bg: #f6f4ef;
@@ -13,6 +13,8 @@
       --line: #e6e1d8;
       --accent: #2f6f4e;
       --accent-soft: #e4f0e9;
+      --gold: #a67c00;
+      --gold-soft: #f7efd8;
       --miss: #f0ebe3;
       --shadow: 0 10px 30px rgba(28, 27, 25, 0.06);
     }
@@ -28,7 +30,7 @@
       line-height: 1.5;
     }
     .wrap {
-      max-width: 880px;
+      max-width: 960px;
       margin: 0 auto;
       padding: 40px 20px 64px;
     }
@@ -67,10 +69,10 @@
     }
     .grid {
       display: grid;
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       gap: 18px;
     }
-    @media (max-width: 720px) {
+    @media (max-width: 760px) {
       .grid { grid-template-columns: 1fr; }
       header { flex-direction: column; align-items: start; }
     }
@@ -80,6 +82,11 @@
       border-radius: 18px;
       padding: 22px;
       box-shadow: var(--shadow);
+    }
+    .card h2 {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 600;
     }
     .streak-num {
       font-size: clamp(64px, 12vw, 96px);
@@ -113,16 +120,45 @@
       color: var(--muted);
       font-size: 12px;
     }
+    .credit-rows { display: grid; gap: 10px; }
+    .credit-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--bg);
+    }
+    .credit-row .label {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .credit-row .label b { font-size: 14px; font-weight: 600; }
+    .credit-row .label span { font-size: 12px; color: var(--muted); }
+    .credit-row .value {
+      font-size: 22px;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+    }
+    .credit-row.base .value { color: var(--accent); }
+    .credit-row.bonus .value { color: var(--gold); }
+    .credit-row.total {
+      background: linear-gradient(180deg, var(--accent-soft), var(--bg));
+    }
+    .credit-row.total .value { color: var(--ink); }
+    .note {
+      margin-top: 12px;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
     .cal-head {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 14px;
-    }
-    .cal-head h2 {
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
     }
     .cal-nav {
       display: flex;
@@ -170,14 +206,7 @@
       outline: 2px solid var(--ink);
       outline-offset: 1px;
     }
-    .history {
-      grid-column: 1 / -1;
-    }
-    .history h2 {
-      margin: 0 0 12px;
-      font-size: 16px;
-      font-weight: 600;
-    }
+    .history { grid-column: 1 / -1; }
     .history-list {
       display: flex;
       flex-wrap: wrap;
@@ -191,10 +220,11 @@
       font-size: 13px;
       font-variant-numeric: tabular-nums;
     }
-    .empty-tip {
-      color: var(--muted);
-      font-size: 14px;
+    .chip.gold {
+      background: var(--gold-soft);
+      color: var(--gold);
     }
+    .empty-tip { color: var(--muted); font-size: 14px; }
     footer {
       margin-top: 28px;
       color: var(--muted);
@@ -215,25 +245,58 @@
   <div class="wrap">
     <header>
       <div>
-        <div class="brand">WorkBuddy · Cloud Check-in</div>
-        <h1>每日打卡</h1>
+        <div class="brand">WorkBuddy · Buddy 加油站</div>
+        <h1>积分与签到</h1>
       </div>
       <div id="statusPill" class="status-pill">加载中…</div>
     </header>
 
     <div class="grid">
       <section class="card">
+        <h2>签到</h2>
         <div id="streakNum" class="streak-num">—</div>
         <div class="streak-label">当前连续打卡（天）</div>
         <div class="meta">
           <div class="meta-item">
-            <strong id="totalNum">—</strong>
-            <span>累计打卡</span>
+            <strong id="todayCredit">—</strong>
+            <span>今日获得</span>
           </div>
           <div class="meta-item">
             <strong id="lastDate">—</strong>
             <span>最近一次</span>
           </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>积分明细</h2>
+        <div class="credit-rows">
+          <div class="credit-row base">
+            <div class="label">
+              <b>基础签到积分</b>
+              <span>每日领取 / 本活动累计</span>
+            </div>
+            <div class="value" id="baseCredit">—</div>
+          </div>
+          <div class="credit-row bonus">
+            <div class="label">
+              <b>平台奖励积分</b>
+              <span>连签奖励等加赠</span>
+            </div>
+            <div class="value" id="bonusCredit">—</div>
+          </div>
+          <div class="credit-row total">
+            <div class="label">
+              <b>活动累计</b>
+              <span id="activityName">Buddy 加油站</span>
+            </div>
+            <div class="value" id="activityTotal">—</div>
+          </div>
+        </div>
+        <div class="note" id="creditNote">
+          数据来自 WorkBuddy 签到接口快照；账号总账户（套餐基础 / 加赠）请以
+          <a href="https://workbuddy.ai" target="_blank" rel="noreferrer">workbuddy.ai</a>
+          个人中心 → 用量 为准。
         </div>
       </section>
 
@@ -251,6 +314,34 @@
         <div id="days" class="days"></div>
       </section>
 
+      <section class="card">
+        <h2>积分构成</h2>
+        <div class="credit-rows">
+          <div class="credit-row">
+            <div class="label">
+              <b>每日基础</b>
+              <span>daily_credit</span>
+            </div>
+            <div class="value" id="dailyCredit">—</div>
+          </div>
+          <div class="credit-row">
+            <div class="label">
+              <b>连签奖励</b>
+              <span>streak_bonus_credit</span>
+            </div>
+            <div class="value" id="streakBonus">—</div>
+          </div>
+          <div class="credit-row">
+            <div class="label">
+              <b>本周打卡</b>
+              <span>week_checkin_days</span>
+            </div>
+            <div class="value" id="weekDays">—</div>
+          </div>
+        </div>
+        <div class="note" id="seasonNote">—</div>
+      </section>
+
       <section class="card history">
         <h2>最近记录</h2>
         <div id="historyList" class="history-list">
@@ -260,7 +351,8 @@
     </div>
 
     <footer>
-      由 GitHub Actions 每天 08:00（北京时间）自动打卡 · 数据来自仓库
+      由 GitHub Actions 每天 09:05（北京时间）自动签到 ·
+      <code>data/credits.json</code> ·
       <code>data/checkins.json</code>
     </footer>
   </div>
@@ -268,9 +360,10 @@
   <script>
     const state = {
       checkins: new Set(),
+      credits: null,
       lastCheckin: null,
-      view: null, // Date at first of month
-      tzOffset: 8 * 60, // Asia/Shanghai
+      view: null,
+      tzOffset: 8 * 60,
     };
 
     function shanghaiToday() {
@@ -290,8 +383,7 @@
       if (!set.size) return 0;
       const [y, m, d] = todayIso.split("-").map(Number);
       let cursor = new Date(y, m - 1, d);
-      const key = iso(cursor);
-      if (!set.has(key)) {
+      if (!set.has(iso(cursor))) {
         cursor = new Date(y, m - 1, d - 1);
         if (!set.has(iso(cursor))) return 0;
       }
@@ -305,11 +397,35 @@
 
     function renderStats() {
       const today = iso(shanghaiToday());
-      const streak = streakOf(state.checkins, today);
-      const total = state.checkins.size;
-      document.getElementById("streakNum").textContent = String(streak);
-      document.getElementById("totalNum").textContent = String(total);
+      const c = state.credits || {};
+      const streak = c.streak || streakOf(state.checkins, today);
+      document.getElementById("streakNum").textContent = String(streak ?? "—");
+      document.getElementById("todayCredit").textContent =
+        c.today_credit != null ? String(c.today_credit) : "—";
       document.getElementById("lastDate").textContent = state.lastCheckin || "—";
+
+      // 基础 = 每日基础签到；平台奖励 = 连签等加赠
+      const base = c.daily_credit != null ? c.daily_credit : (c.today_credit ?? 0);
+      const bonus = c.streak_bonus_credit != null ? c.streak_bonus_credit : 0;
+      document.getElementById("baseCredit").textContent = String(base);
+      document.getElementById("bonusCredit").textContent = String(bonus);
+      document.getElementById("activityTotal").textContent =
+        c.activity_total_credits != null ? String(c.activity_total_credits) : "—";
+      document.getElementById("dailyCredit").textContent =
+        c.daily_credit != null ? String(c.daily_credit) : "—";
+      document.getElementById("streakBonus").textContent =
+        c.streak_bonus_credit != null ? String(c.streak_bonus_credit) : "—";
+      document.getElementById("weekDays").textContent =
+        c.week_checkin_days != null ? String(c.week_checkin_days) : "—";
+
+      if (c.activity_name) {
+        document.getElementById("activityName").textContent =
+          `${c.theme_name || "Buddy 加油站"} · ${c.activity_name}`;
+      }
+      if (c.start_time || c.end_time) {
+        document.getElementById("seasonNote").textContent =
+          `活动期：${c.start_time || "?"} ~ ${c.end_time || "?"} · 赛季 ${c.season ?? "?"} · 更新于 ${c.updatedAt || "?"}`;
+      }
 
       const pill = document.getElementById("statusPill");
       if (state.checkins.has(today)) {
@@ -323,13 +439,11 @@
 
     function renderCalendar() {
       const view = state.view;
-      const title = `${view.getFullYear()} 年 ${view.getMonth() + 1} 月`;
-      document.getElementById("calTitle").textContent = title;
-
+      document.getElementById("calTitle").textContent =
+        `${view.getFullYear()} 年 ${view.getMonth() + 1} 月`;
       const year = view.getFullYear();
       const month = view.getMonth();
       const first = new Date(year, month, 1);
-      // Monday-first offset
       const startPad = (first.getDay() + 6) % 7;
       const daysInMonth = new Date(year, month + 1, 0).getDate();
       const todayIso = iso(shanghaiToday());
@@ -342,38 +456,58 @@
         container.appendChild(cell);
       }
 
+      // 合并本地记录 + 接口返回的 checkin_dates
+      const marked = new Set(state.checkins);
+      if (state.credits && Array.isArray(state.credits.checkin_dates)) {
+        state.credits.checkin_dates.forEach((d) => marked.add(d));
+      }
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(year, month, day);
         const key = iso(date);
         const cell = document.createElement("div");
         cell.className = "day";
         cell.textContent = String(day);
-        if (state.checkins.has(key)) cell.classList.add("checked");
+        if (marked.has(key)) cell.classList.add("checked");
         if (key === todayIso) cell.classList.add("today");
         container.appendChild(cell);
       }
     }
 
     function renderHistory() {
-      const list = [...state.checkins].sort().reverse().slice(0, 30);
+      const marked = new Set(state.checkins);
+      if (state.credits && Array.isArray(state.credits.checkin_dates)) {
+        state.credits.checkin_dates.forEach((d) => marked.add(d));
+      }
+      const list = [...marked].sort().reverse().slice(0, 30);
       const el = document.getElementById("historyList");
       if (!list.length) {
-        el.innerHTML = '<div class="empty-tip">还没有打卡记录，等待第一次云端签到。</div>';
+        el.innerHTML = '<div class="empty-tip">还没有打卡记录。</div>';
         return;
       }
-      el.innerHTML = list.map((d) => `<span class="chip">${d}</span>`).join("");
+      el.innerHTML = list
+        .map((d, i) => `<span class="chip ${i < 3 ? "gold" : ""}">${d}</span>`)
+        .join("");
+    }
+
+    async function loadJSON(path) {
+      const res = await fetch(path, { cache: "no-store" });
+      if (!res.ok) throw new Error(path + " " + res.status);
+      return res.json();
     }
 
     async function loadData() {
       try {
-        const res = await fetch("./data/checkins.json", { cache: "no-store" });
-        if (!res.ok) throw new Error(String(res.status));
-        const data = await res.json();
+        const data = await loadJSON("./data/checkins.json");
         state.checkins = new Set(data.checkins || []);
         state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
       } catch (e) {
-        document.getElementById("historyList").innerHTML =
-          '<div class="empty-tip">无法加载 data/checkins.json，请确认 Pages 已部署且数据文件已提交。</div>';
+        console.warn(e);
+      }
+      try {
+        state.credits = await loadJSON("./data/credits.json");
+      } catch (e) {
+        console.warn(e);
       }
       const today = shanghaiToday();
       state.view = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -392,10 +526,7 @@
     });
 
     loadData();
-    // 每分钟刷新「今日状态」
-    setInterval(() => {
-      renderStats();
-    }, 60000);
+    setInterval(renderStats, 60000);
   </script>
 </body>
 </html>

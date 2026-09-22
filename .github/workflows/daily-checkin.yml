@@ -15,14 +15,14 @@ concurrency:
 
 jobs:
   checkin:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 8
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -37,7 +37,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/checkins.json data/last-run.json
+          git add data/checkins.json data/last-run.json data/credits.json
           if git diff --staged --quiet; then
             echo "No history change"
           else
@@ -49,14 +49,24 @@ jobs:
         run: |
           python <<'PY'
           import json, os, pathlib
+          run = {}
+          credits = {}
           p = pathlib.Path("data/last-run.json")
-          d = json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+          if p.exists():
+              run = json.loads(p.read_text(encoding="utf-8"))
+          c = pathlib.Path("data/credits.json")
+          if c.exists():
+              credits = json.loads(c.read_text(encoding="utf-8"))
           summary = pathlib.Path(os.environ["GITHUB_STEP_SUMMARY"])
           with summary.open("a", encoding="utf-8") as f:
               f.write("### WorkBuddy 签到\n")
-              f.write(f"- 日期: {d.get('date')}\n")
-              f.write(f"- 状态: {d.get('status')}\n")
-              f.write(f"- 连续: {d.get('streak')} 天\n")
-              f.write(f"- 累计: {d.get('total')} 天\n")
-              f.write(f"- 说明: {d.get('report')}\n")
+              f.write(f"- 日期: {run.get('date')}\n")
+              f.write(f"- 状态: {run.get('status')}\n")
+              f.write(f"- 连续: {run.get('streak')} 天\n")
+              f.write(f"- 说明: {run.get('report')}\n")
+              if credits:
+                  f.write("\n### 积分快照\n")
+                  f.write(f"- 活动累计: {credits.get('activity_total_credits')}\n")
+                  f.write(f"- 今日获得: {credits.get('today_credit')}\n")
+                  f.write(f"- 连签奖励: {credits.get('streak_bonus_credit')}\n")
           PY

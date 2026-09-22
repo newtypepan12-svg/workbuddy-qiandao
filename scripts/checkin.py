@@ -158,7 +158,26 @@ def extract_result(payload: dict | None) -> dict:
         or data.get("credits")
     )
     streak = data.get("streak_days") or data.get("streakDays") or data.get("streak")
-    return {"credit": credit, "streak": streak, "raw_keys": list(data.keys())[:12]}
+    return {
+        "credit": credit,
+        "streak": streak,
+        "today_credit": data.get("today_credit"),
+        "daily_credit": data.get("daily_credit"),
+        "total_credits": data.get("total_credits"),
+        "streak_bonus_credit": data.get("streak_bonus_credit"),
+        "streak_bonus_days": data.get("streak_bonus_days"),
+        "week_checkin_days": data.get("week_checkin_days"),
+        "checkin_dates": data.get("checkin_dates"),
+        "season": data.get("season"),
+        "activity_name": data.get("activity_name"),
+        "theme_name": data.get("theme_name"),
+        "start_time": data.get("start_time"),
+        "end_time": data.get("end_time"),
+        "base_credit": data.get("base_credit") or data.get("baseCredit") or data.get("basic_credit"),
+        "bonus_credit": data.get("bonus_credit") or data.get("bonusCredit") or data.get("gift_credit") or data.get("extra_credit"),
+        "platform_reward": data.get("platform_reward") or data.get("platformReward") or data.get("reward_credit"),
+        "raw_keys": list(data.keys())[:16],
+    }
 
 
 def try_hosts(creds: dict, path: str) -> tuple[int, dict | None, str, str]:
@@ -234,6 +253,32 @@ def save_history(success: bool, detail: dict) -> None:
         )
         + "\n",
         encoding="utf-8",
+    )
+
+    credits = {
+        "updatedAt": datetime.now(TZ).isoformat(timespec="seconds"),
+        "source": "workbuddy-checkin-activity",
+        "today_credit": detail.get("today_credit") or detail.get("credit"),
+        "daily_credit": detail.get("daily_credit"),
+        "activity_total_credits": detail.get("total_credits"),
+        "streak_bonus_credit": detail.get("streak_bonus_credit") or 0,
+        "streak_bonus_days": detail.get("streak_bonus_days") or 0,
+        "streak": detail.get("streak") or streak_n,
+        "checkin_days": len(checkins),
+        "checkin_dates": detail.get("checkin_dates") or checkins[-14:],
+        "week_checkin_days": detail.get("week_checkin_days"),
+        "season": detail.get("season"),
+        "activity_name": detail.get("activity_name"),
+        "theme_name": detail.get("theme_name"),
+        "start_time": detail.get("start_time"),
+        "end_time": detail.get("end_time"),
+        # 账号总览（若接口返回则填入）
+        "base_credit": detail.get("base_credit"),
+        "bonus_credit": detail.get("bonus_credit"),
+        "platform_reward": detail.get("platform_reward"),
+    }
+    Path(ROOT / "data" / "credits.json").write_text(
+        json.dumps(credits, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
 
 
