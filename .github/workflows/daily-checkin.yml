@@ -31,7 +31,9 @@ jobs:
           WORKBUDDY_ACCESS_TOKEN: ${{ secrets.WORKBUDDY_ACCESS_TOKEN }}
           WORKBUDDY_UID: ${{ secrets.WORKBUDDY_UID }}
           WORKBUDDY_DOMAIN: ${{ secrets.WORKBUDDY_DOMAIN }}
-        run: python scripts/checkin.py
+        run: |
+          python scripts/checkin.py
+          python scripts/fetch_credits.py || true
 
       - name: Commit history
         run: |

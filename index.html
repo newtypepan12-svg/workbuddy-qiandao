@@ -15,6 +15,8 @@
       --accent-soft: #e4f0e9;
       --gold: #a67c00;
       --gold-soft: #f7efd8;
+      --warn: #a33b2d;
+      --warn-soft: #f8e8e4;
       --miss: #f0ebe3;
       --shadow: 0 10px 30px rgba(28, 27, 25, 0.06);
     }
@@ -23,220 +25,95 @@
       margin: 0;
       min-height: 100vh;
       font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-      background:
-        radial-gradient(1200px 400px at 10% -10%, #e8f0ea 0%, transparent 60%),
-        var(--bg);
+      background: radial-gradient(1200px 400px at 10% -10%, #e8f0ea 0%, transparent 60%), var(--bg);
       color: var(--ink);
       line-height: 1.5;
     }
-    .wrap {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 20px 64px;
-    }
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 20px 64px; }
     header {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 16px;
-      margin-bottom: 28px;
+      display: flex; justify-content: space-between; align-items: end;
+      gap: 16px; margin-bottom: 28px;
     }
-    .brand {
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-    }
-    h1 {
-      margin: 4px 0 0;
-      font-size: clamp(28px, 5vw, 40px);
-      font-weight: 650;
-      letter-spacing: -0.02em;
-    }
+    .brand { font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    h1 { margin: 4px 0 0; font-size: clamp(28px, 5vw, 40px); font-weight: 650; letter-spacing: -0.02em; }
     .status-pill {
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--line);
-      font-size: 13px;
-      color: var(--muted);
-      white-space: nowrap;
+      padding: 8px 14px; border-radius: 999px; background: var(--card);
+      border: 1px solid var(--line); font-size: 13px; color: var(--muted); white-space: nowrap;
     }
-    .status-pill.ok {
-      background: var(--accent-soft);
-      border-color: #c9dfd2;
-      color: var(--accent);
-    }
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 18px;
-    }
+    .status-pill.ok { background: var(--accent-soft); border-color: #c9dfd2; color: var(--accent); }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
     @media (max-width: 760px) {
       .grid { grid-template-columns: 1fr; }
       header { flex-direction: column; align-items: start; }
     }
     .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 22px;
-      box-shadow: var(--shadow);
+      background: var(--card); border: 1px solid var(--line); border-radius: 18px;
+      padding: 22px; box-shadow: var(--shadow);
     }
-    .card h2 {
-      margin: 0 0 14px;
-      font-size: 16px;
-      font-weight: 600;
-    }
+    .card.wide { grid-column: 1 / -1; }
+    .card h2 { margin: 0 0 14px; font-size: 16px; font-weight: 600; }
     .streak-num {
-      font-size: clamp(64px, 12vw, 96px);
-      font-weight: 700;
-      letter-spacing: -0.04em;
-      line-height: 1;
-      color: var(--accent);
+      font-size: clamp(56px, 10vw, 80px); font-weight: 700;
+      letter-spacing: -0.04em; line-height: 1; color: var(--accent);
     }
-    .streak-label {
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .meta {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 22px;
-    }
-    .meta-item {
-      background: var(--bg);
-      border-radius: 12px;
-      padding: 12px 14px;
-    }
-    .meta-item strong {
-      display: block;
-      font-size: 22px;
-      font-weight: 650;
-    }
-    .meta-item span {
-      color: var(--muted);
-      font-size: 12px;
-    }
+    .streak-label { margin-top: 8px; color: var(--muted); font-size: 14px; }
+    .meta { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 18px; }
+    .meta-item { background: var(--bg); border-radius: 12px; padding: 12px 14px; }
+    .meta-item strong { display: block; font-size: 20px; font-weight: 650; }
+    .meta-item span { color: var(--muted); font-size: 12px; }
     .credit-rows { display: grid; gap: 10px; }
     .credit-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 14px;
-      border-radius: 12px;
-      background: var(--bg);
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; padding: 12px 14px; border-radius: 12px; background: var(--bg);
     }
-    .credit-row .label {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .credit-row .label { display: flex; flex-direction: column; gap: 2px; }
     .credit-row .label b { font-size: 14px; font-weight: 600; }
     .credit-row .label span { font-size: 12px; color: var(--muted); }
     .credit-row .value {
-      font-size: 22px;
-      font-weight: 700;
-      font-variant-numeric: tabular-nums;
+      font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums;
     }
     .credit-row.base .value { color: var(--accent); }
     .credit-row.bonus .value { color: var(--gold); }
-    .credit-row.total {
-      background: linear-gradient(180deg, var(--accent-soft), var(--bg));
-    }
+    .credit-row.warn .value { color: var(--warn); }
+    .credit-row.total { background: linear-gradient(180deg, var(--accent-soft), var(--bg)); }
     .credit-row.total .value { color: var(--ink); }
-    .note {
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-    .cal-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 14px;
-    }
-    .cal-nav {
-      display: flex;
-      gap: 8px;
-    }
+    .note { margin-top: 12px; font-size: 12px; color: var(--muted); line-height: 1.6; }
+    .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+    .cal-nav { display: flex; gap: 8px; }
     .cal-nav button {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      background: var(--card);
-      cursor: pointer;
-      color: var(--ink);
-      font-size: 16px;
+      width: 32px; height: 32px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--card); cursor: pointer; color: var(--ink); font-size: 16px;
     }
     .cal-nav button:hover { background: var(--bg); }
-    .weekdays, .days {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 6px;
-    }
-    .weekdays span {
-      text-align: center;
-      font-size: 12px;
-      color: var(--muted);
-      padding: 4px 0;
-    }
+    .weekdays, .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+    .weekdays span { text-align: center; font-size: 12px; color: var(--muted); padding: 4px 0; }
     .day {
-      aspect-ratio: 1;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      background: var(--miss);
-      color: var(--muted);
+      aspect-ratio: 1; border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; font-size: 13px; background: var(--miss); color: var(--muted);
     }
     .day.empty { background: transparent; }
-    .day.checked {
-      background: var(--accent);
-      color: #fff;
-      font-weight: 600;
-    }
-    .day.today {
-      outline: 2px solid var(--ink);
-      outline-offset: 1px;
-    }
-    .history { grid-column: 1 / -1; }
-    .history-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
+    .day.checked { background: var(--accent); color: #fff; font-weight: 600; }
+    .day.today { outline: 2px solid var(--ink); outline-offset: 1px; }
+    .history-list { display: flex; flex-wrap: wrap; gap: 8px; }
     .chip {
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 13px;
-      font-variant-numeric: tabular-nums;
+      padding: 6px 10px; border-radius: 999px; background: var(--accent-soft);
+      color: var(--accent); font-size: 13px; font-variant-numeric: tabular-nums;
     }
-    .chip.gold {
-      background: var(--gold-soft);
-      color: var(--gold);
-    }
+    .chip.gold { background: var(--gold-soft); color: var(--gold); }
+    .chip.warn { background: var(--warn-soft); color: var(--warn); }
     .empty-tip { color: var(--muted); font-size: 14px; }
-    footer {
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: 13px;
-      text-align: center;
+    table.slice {
+      width: 100%; border-collapse: collapse; font-size: 13px;
     }
+    table.slice th, table.slice td {
+      text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line);
+    }
+    table.slice th { color: var(--muted); font-weight: 500; font-size: 12px; }
+    table.slice td.num { font-variant-numeric: tabular-nums; text-align: right; }
+    footer { margin-top: 28px; color: var(--muted); font-size: 13px; text-align: center; }
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 12px;
-      background: #efece6;
-      padding: 1px 6px;
-      border-radius: 6px;
+      font-size: 12px; background: #efece6; padding: 1px 6px; border-radius: 6px;
     }
     .loading { color: var(--muted); }
   </style>
@@ -245,61 +122,71 @@
   <div class="wrap">
     <header>
       <div>
-        <div class="brand">WorkBuddy · Buddy 加油站</div>
+        <div class="brand">WorkBuddy · 积分账户</div>
         <h1>积分与签到</h1>
       </div>
       <div id="statusPill" class="status-pill">加载中…</div>
     </header>
 
     <div class="grid">
+      <!-- 账号总余额 -->
+      <section class="card">
+        <h2>账号余额</h2>
+        <div class="credit-rows">
+          <div class="credit-row total">
+            <div class="label"><b>总剩余</b><span>可用积分合计</span></div>
+            <div class="value" id="totalRemain">—</div>
+          </div>
+          <div class="credit-row base">
+            <div class="label"><b>基础积分</b><span>体验版 / 套餐额度</span></div>
+            <div class="value" id="baseRemain">—</div>
+          </div>
+          <div class="credit-row bonus">
+            <div class="label"><b>平台奖励</b><span>活动 / 赠送 / 加量</span></div>
+            <div class="value" id="bonusRemain">—</div>
+          </div>
+        </div>
+        <div class="note" id="accountNote">—</div>
+      </section>
+
+      <!-- 到期 -->
+      <section class="card">
+        <h2>到期情况</h2>
+        <div class="credit-rows">
+          <div class="credit-row warn">
+            <div class="label"><b>本月将过期</b><span id="monthLabel">本月内到期</span></div>
+            <div class="value" id="expireThisMonth">—</div>
+          </div>
+          <div class="credit-row">
+            <div class="label"><b>跨月仍可用</b><span>本月之后才过期</span></div>
+            <div class="value" id="expireAfterMonth">—</div>
+          </div>
+          <div class="credit-row">
+            <div class="label"><b>永不过期</b><span>当前账号为 0</span></div>
+            <div class="value" id="neverExpire">—</div>
+          </div>
+        </div>
+        <div class="note">免费 / 赠送积分都有到期日；消耗按「先到期先扣」。建议本月先把将过期的 2589 用掉。</div>
+      </section>
+
+      <!-- 签到 -->
       <section class="card">
         <h2>签到</h2>
         <div id="streakNum" class="streak-num">—</div>
         <div class="streak-label">当前连续打卡（天）</div>
         <div class="meta">
-          <div class="meta-item">
-            <strong id="todayCredit">—</strong>
-            <span>今日获得</span>
-          </div>
-          <div class="meta-item">
-            <strong id="lastDate">—</strong>
-            <span>最近一次</span>
-          </div>
+          <div class="meta-item"><strong id="todayCredit">—</strong><span>今日签到获得</span></div>
+          <div class="meta-item"><strong id="activityTotal">—</strong><span>签到活动累计</span></div>
         </div>
       </section>
 
+      <!-- 包明细 -->
       <section class="card">
-        <h2>积分明细</h2>
-        <div class="credit-rows">
-          <div class="credit-row base">
-            <div class="label">
-              <b>基础签到积分</b>
-              <span>每日领取 / 本活动累计</span>
-            </div>
-            <div class="value" id="baseCredit">—</div>
-          </div>
-          <div class="credit-row bonus">
-            <div class="label">
-              <b>平台奖励积分</b>
-              <span>连签奖励等加赠</span>
-            </div>
-            <div class="value" id="bonusCredit">—</div>
-          </div>
-          <div class="credit-row total">
-            <div class="label">
-              <b>活动累计</b>
-              <span id="activityName">Buddy 加油站</span>
-            </div>
-            <div class="value" id="activityTotal">—</div>
-          </div>
-        </div>
-        <div class="note" id="creditNote">
-          数据来自 WorkBuddy 签到接口快照；账号总账户（套餐基础 / 加赠）请以
-          <a href="https://workbuddy.ai" target="_blank" rel="noreferrer">workbuddy.ai</a>
-          个人中心 → 用量 为准。
-        </div>
+        <h2>资源包</h2>
+        <div id="pkgList" class="credit-rows"><div class="loading">…</div></div>
       </section>
 
+      <!-- 日历 -->
       <section class="card">
         <div class="cal-head">
           <h2 id="calTitle">日历</h2>
@@ -314,119 +201,101 @@
         <div id="days" class="days"></div>
       </section>
 
-      <section class="card">
-        <h2>积分构成</h2>
-        <div class="credit-rows">
-          <div class="credit-row">
-            <div class="label">
-              <b>每日基础</b>
-              <span>daily_credit</span>
-            </div>
-            <div class="value" id="dailyCredit">—</div>
-          </div>
-          <div class="credit-row">
-            <div class="label">
-              <b>连签奖励</b>
-              <span>streak_bonus_credit</span>
-            </div>
-            <div class="value" id="streakBonus">—</div>
-          </div>
-          <div class="credit-row">
-            <div class="label">
-              <b>本周打卡</b>
-              <span>week_checkin_days</span>
-            </div>
-            <div class="value" id="weekDays">—</div>
-          </div>
-        </div>
-        <div class="note" id="seasonNote">—</div>
+      <!-- 到期切片 -->
+      <section class="card wide">
+        <h2>即将到期明细</h2>
+        <div id="sliceWrap"><div class="loading">…</div></div>
       </section>
 
-      <section class="card history">
-        <h2>最近记录</h2>
-        <div id="historyList" class="history-list">
-          <div class="loading">读取 data/checkins.json …</div>
-        </div>
+      <section class="card wide">
+        <h2>最近签到</h2>
+        <div id="historyList" class="history-list"><div class="loading">…</div></div>
       </section>
     </div>
 
     <footer>
-      由 GitHub Actions 每天 09:05（北京时间）自动签到 ·
+      GitHub Actions 每天 09:05 自动签到并刷新余额 ·
       <code>data/credits.json</code> ·
-      <code>data/checkins.json</code>
+      <a href="https://workbuddy.ai" target="_blank" rel="noreferrer">官网个人中心</a>
     </footer>
   </div>
 
   <script>
-    const state = {
-      checkins: new Set(),
-      credits: null,
-      lastCheckin: null,
-      view: null,
-      tzOffset: 8 * 60,
-    };
+    const state = { checkins: new Set(), credits: null, view: null, tzOffset: 8 * 60 };
 
     function shanghaiToday() {
       const now = new Date();
       const utc = now.getTime() + now.getTimezoneOffset() * 60000;
       return new Date(utc + state.tzOffset * 60000);
     }
-
     function iso(d) {
       const y = d.getFullYear();
       const m = String(d.getMonth() + 1).padStart(2, "0");
       const day = String(d.getDate()).padStart(2, "0");
       return `${y}-${m}-${day}`;
     }
-
-    function streakOf(set, todayIso) {
-      if (!set.size) return 0;
-      const [y, m, d] = todayIso.split("-").map(Number);
-      let cursor = new Date(y, m - 1, d);
-      if (!set.has(iso(cursor))) {
-        cursor = new Date(y, m - 1, d - 1);
-        if (!set.has(iso(cursor))) return 0;
-      }
-      let n = 0;
-      while (set.has(iso(cursor))) {
-        n += 1;
-        cursor = new Date(cursor.getFullYear(), cursor.getMonth(), cursor.getDate() - 1);
-      }
-      return n;
+    function fmt(n) {
+      if (n == null || Number.isNaN(Number(n))) return "—";
+      const x = Number(n);
+      return Number.isInteger(x) ? String(x) : x.toFixed(2);
     }
 
-    function renderStats() {
-      const today = iso(shanghaiToday());
+    function render() {
       const c = state.credits || {};
-      const streak = c.streak || streakOf(state.checkins, today);
-      document.getElementById("streakNum").textContent = String(streak ?? "—");
-      document.getElementById("todayCredit").textContent =
-        c.today_credit != null ? String(c.today_credit) : "—";
-      document.getElementById("lastDate").textContent = state.lastCheckin || "—";
+      document.getElementById("totalRemain").textContent = fmt(c.total_remain);
+      document.getElementById("baseRemain").textContent = fmt(c.base_remain);
+      document.getElementById("bonusRemain").textContent = fmt(c.bonus_remain);
+      document.getElementById("expireThisMonth").textContent = fmt(c.expire_this_month);
+      document.getElementById("expireAfterMonth").textContent = fmt(c.expire_after_month);
+      document.getElementById("neverExpire").textContent = fmt(c.never_expire);
+      document.getElementById("monthLabel").textContent = (c.month || "") + " 内到期";
+      document.getElementById("accountNote").textContent =
+        `更新于 ${c.updatedAt || "—"} · ${c.isPaidUser ? "付费用户" : "免费/体验用户"} · ${c.note || ""}`;
 
-      // 基础 = 每日基础签到；平台奖励 = 连签等加赠
-      const base = c.daily_credit != null ? c.daily_credit : (c.today_credit ?? 0);
-      const bonus = c.streak_bonus_credit != null ? c.streak_bonus_credit : 0;
-      document.getElementById("baseCredit").textContent = String(base);
-      document.getElementById("bonusCredit").textContent = String(bonus);
-      document.getElementById("activityTotal").textContent =
-        c.activity_total_credits != null ? String(c.activity_total_credits) : "—";
-      document.getElementById("dailyCredit").textContent =
-        c.daily_credit != null ? String(c.daily_credit) : "—";
-      document.getElementById("streakBonus").textContent =
-        c.streak_bonus_credit != null ? String(c.streak_bonus_credit) : "—";
-      document.getElementById("weekDays").textContent =
-        c.week_checkin_days != null ? String(c.week_checkin_days) : "—";
+      document.getElementById("streakNum").textContent = fmt(c.streak ?? "—");
+      document.getElementById("todayCredit").textContent = fmt(c.today_credit);
+      document.getElementById("activityTotal").textContent = fmt(c.activity_total_credits);
 
-      if (c.activity_name) {
-        document.getElementById("activityName").textContent =
-          `${c.theme_name || "Buddy 加油站"} · ${c.activity_name}`;
+      // 资源包
+      const pkgs = c.packages || [];
+      const pkgEl = document.getElementById("pkgList");
+      if (!pkgs.length) {
+        pkgEl.innerHTML = '<div class="empty-tip">暂无资源包</div>';
+      } else {
+        pkgEl.innerHTML = pkgs.map((p) => `
+          <div class="credit-row ${p.kind === "base" ? "base" : "bonus"}">
+            <div class="label">
+              <b>${p.name}</b>
+              <span>${p.kind === "base" ? "基础" : "平台奖励"} · 已用 ${fmt(p.used)} / 共 ${fmt(p.total)}</span>
+            </div>
+            <div class="value">${fmt(p.remain)}</div>
+          </div>`).join("");
       }
-      if (c.start_time || c.end_time) {
-        document.getElementById("seasonNote").textContent =
-          `活动期：${c.start_time || "?"} ~ ${c.end_time || "?"} · 赛季 ${c.season ?? "?"} · 更新于 ${c.updatedAt || "?"}`;
+
+      // 到期切片表
+      const slices = c.expiring_slices || [];
+      const wrap = document.getElementById("sliceWrap");
+      if (!slices.length) {
+        wrap.innerHTML = '<div class="empty-tip">暂无明细</div>';
+      } else {
+        wrap.innerHTML = `<table class="slice">
+          <thead><tr><th>类型</th><th>资源包</th><th style="text-align:right">剩余</th><th>到期时间</th></tr></thead>
+          <tbody>
+            ${slices.map((s) => {
+              const warn = s.expireLabel && s.expireLabel.startsWith((c.month || "") ) ? "warn" : "gold";
+              return `<tr>
+                <td><span class="chip ${s.kind === "base" ? "" : "gold"}">${s.kind === "base" ? "基础" : "奖励"}</span></td>
+                <td>${s.name}</td>
+                <td class="num">${fmt(s.remain)}</td>
+                <td><span class="chip ${warn}">${s.expireLabel || "—"}</span></td>
+              </tr>`;
+            }).join("")}
+          </tbody>
+        </table>`;
       }
 
+      // 签到日历数据
+      const today = iso(shanghaiToday());
       const pill = document.getElementById("statusPill");
       if (state.checkins.has(today)) {
         pill.textContent = "今日已打卡";
@@ -449,22 +318,17 @@
       const todayIso = iso(shanghaiToday());
       const container = document.getElementById("days");
       container.innerHTML = "";
-
       for (let i = 0; i < startPad; i++) {
         const cell = document.createElement("div");
         cell.className = "day empty";
         container.appendChild(cell);
       }
-
-      // 合并本地记录 + 接口返回的 checkin_dates
       const marked = new Set(state.checkins);
       if (state.credits && Array.isArray(state.credits.checkin_dates)) {
         state.credits.checkin_dates.forEach((d) => marked.add(d));
       }
-
       for (let day = 1; day <= daysInMonth; day++) {
-        const date = new Date(year, month, day);
-        const key = iso(date);
+        const key = iso(new Date(year, month, day));
         const cell = document.createElement("div");
         cell.className = "day";
         cell.textContent = String(day);
@@ -481,13 +345,9 @@
       }
       const list = [...marked].sort().reverse().slice(0, 30);
       const el = document.getElementById("historyList");
-      if (!list.length) {
-        el.innerHTML = '<div class="empty-tip">还没有打卡记录。</div>';
-        return;
-      }
-      el.innerHTML = list
-        .map((d, i) => `<span class="chip ${i < 3 ? "gold" : ""}">${d}</span>`)
-        .join("");
+      el.innerHTML = list.length
+        ? list.map((d, i) => `<span class="chip ${i < 3 ? "gold" : ""}">${d}</span>`).join("")
+        : '<div class="empty-tip">还没有打卡记录</div>';
     }
 
     async function loadJSON(path) {
@@ -500,18 +360,13 @@
       try {
         const data = await loadJSON("./data/checkins.json");
         state.checkins = new Set(data.checkins || []);
-        state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
-      } catch (e) {
-        console.warn(e);
-      }
+      } catch (e) { console.warn(e); }
       try {
         state.credits = await loadJSON("./data/credits.json");
-      } catch (e) {
-        console.warn(e);
-      }
+      } catch (e) { console.warn(e); }
       const today = shanghaiToday();
       state.view = new Date(today.getFullYear(), today.getMonth(), 1);
-      renderStats();
+      render();
       renderCalendar();
       renderHistory();
     }
@@ -526,7 +381,7 @@
     });
 
     loadData();
-    setInterval(renderStats, 60000);
+    setInterval(render, 60000);
   </script>
 </body>
 </html>

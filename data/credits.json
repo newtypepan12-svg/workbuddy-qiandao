@@ -1,6 +1,225 @@
 {
-  "updatedAt": "2026-09-22T11:58:30+08:00",
-  "source": "workbuddy-checkin-activity",
+  "updatedAt": "2026-09-22T13:59:59+08:00",
+  "source": "workbuddy-user-resource",
+  "isPaidUser": false,
+  "total_remain": 4289.22,
+  "base_remain": 500.0,
+  "bonus_remain": 3789.22,
+  "base_total": 500.0,
+  "bonus_total": 3800.0,
+  "expire_this_month": 2589.22,
+  "expire_after_month": 1700.0,
+  "never_expire": 0.0,
+  "month": "2026-09",
+  "packages": [
+    {
+      "code": "TCACA_code_007_nzdH5h4Nl0",
+      "key": "activity",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 3789.22,
+      "total": 3800.0,
+      "used": 10.78,
+      "count": 22
+    },
+    {
+      "code": "TCACA_code_008_cfWoLwvjU4",
+      "key": "freeMon",
+      "name": "体验版月包",
+      "kind": "base",
+      "remain": 500.0,
+      "total": 500.0,
+      "used": 0.0,
+      "count": 1
+    }
+  ],
+  "expiring_slices": [
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 1489.22,
+      "expireAt": "2026-09-30T07:07:15+08:00",
+      "expireLabel": "2026-09-30 07:07"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-09-30T07:07:16+08:00",
+      "expireLabel": "2026-09-30 07:07"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-09-30T08:55:55+08:00",
+      "expireLabel": "2026-09-30 08:55"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 300.0,
+      "expireAt": "2026-09-30T09:35:55+08:00",
+      "expireLabel": "2026-09-30 09:35"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-09-30T11:49:24+08:00",
+      "expireLabel": "2026-09-30 11:49"
+    },
+    {
+      "packageCode": "TCACA_code_008_cfWoLwvjU4",
+      "name": "体验版月包",
+      "kind": "base",
+      "remain": 500.0,
+      "expireAt": "2026-09-30T23:59:59+08:00",
+      "expireLabel": "2026-09-30 23:59"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-01T09:52:33+08:00",
+      "expireLabel": "2026-10-01 09:52"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-01T09:53:46+08:00",
+      "expireLabel": "2026-10-01 09:53"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-02T09:12:02+08:00",
+      "expireLabel": "2026-10-02 09:12"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-02T09:41:37+08:00",
+      "expireLabel": "2026-10-02 09:41"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-05T14:16:35+08:00",
+      "expireLabel": "2026-10-05 14:16"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-08T08:46:21+08:00",
+      "expireLabel": "2026-10-08 08:46"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-09T15:55:17+08:00",
+      "expireLabel": "2026-10-09 15:55"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-10T10:50:43+08:00",
+      "expireLabel": "2026-10-10 10:50"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-11T09:05:13+08:00",
+      "expireLabel": "2026-10-11 09:05"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-12T08:34:40+08:00",
+      "expireLabel": "2026-10-12 08:34"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-14T09:36:35+08:00",
+      "expireLabel": "2026-10-14 09:36"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-15T09:07:52+08:00",
+      "expireLabel": "2026-10-15 09:07"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-16T09:03:30+08:00",
+      "expireLabel": "2026-10-16 09:03"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-17T12:03:15+08:00",
+      "expireLabel": "2026-10-17 12:03"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-20T09:10:44+08:00",
+      "expireLabel": "2026-10-20 09:10"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-21T08:06:22+08:00",
+      "expireLabel": "2026-10-21 08:06"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-22T08:18:37+08:00",
+      "expireLabel": "2026-10-22 08:18"
+    }
+  ],
+  "note": "基础=体验/套餐额度；平台奖励=活动/赠送/加量。免费与赠送积分均有到期日。",
   "today_credit": 100,
   "daily_credit": 100,
   "activity_total_credits": 500,
