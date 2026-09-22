@@ -1,26 +1,21 @@
-﻿# 依赖
 node_modules/
 vendor/
 .venv/
 __pycache__/
 *.pyc
 
-# 构建产物
 dist/
 build/
 out/
 
-# 环境与密钥
 .env
 .env.local
 *.local
 
-# 编辑器 / 系统
 .vscode/
 .idea/
 .DS_Store
 Thumbs.db
 
-# 日志
 *.log
 npm-debug.log*

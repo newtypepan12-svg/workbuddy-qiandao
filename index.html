@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WorkBuddy 签到</title>
+  <style>
+    :root {
+      --bg: #f6f4ef;
+      --card: #ffffff;
+      --ink: #1c1b19;
+      --muted: #6f6a62;
+      --line: #e6e1d8;
+      --accent: #2f6f4e;
+      --accent-soft: #e4f0e9;
+      --miss: #f0ebe3;
+      --shadow: 0 10px 30px rgba(28, 27, 25, 0.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(1200px 400px at 10% -10%, #e8f0ea 0%, transparent 60%),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+    }
+    .wrap {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .brand {
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    h1 {
+      margin: 4px 0 0;
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    .status-pill {
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      font-size: 13px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .status-pill.ok {
+      background: var(--accent-soft);
+      border-color: #c9dfd2;
+      color: var(--accent);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 720px) {
+      .grid { grid-template-columns: 1fr; }
+      header { flex-direction: column; align-items: start; }
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+    }
+    .streak-num {
+      font-size: clamp(64px, 12vw, 96px);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--accent);
+    }
+    .streak-label {
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
+    .meta-item {
+      background: var(--bg);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .meta-item strong {
+      display: block;
+      font-size: 22px;
+      font-weight: 650;
+    }
+    .meta-item span {
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .cal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .cal-head h2 {
+      margin: 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .cal-nav {
+      display: flex;
+      gap: 8px;
+    }
+    .cal-nav button {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      cursor: pointer;
+      color: var(--ink);
+      font-size: 16px;
+    }
+    .cal-nav button:hover { background: var(--bg); }
+    .weekdays, .days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .weekdays span {
+      text-align: center;
+      font-size: 12px;
+      color: var(--muted);
+      padding: 4px 0;
+    }
+    .day {
+      aspect-ratio: 1;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      background: var(--miss);
+      color: var(--muted);
+    }
+    .day.empty { background: transparent; }
+    .day.checked {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+    .day.today {
+      outline: 2px solid var(--ink);
+      outline-offset: 1px;
+    }
+    .history {
+      grid-column: 1 / -1;
+    }
+    .history h2 {
+      margin: 0 0 12px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .history-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .chip {
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .empty-tip {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    footer {
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 13px;
+      text-align: center;
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      background: #efece6;
+      padding: 1px 6px;
+      border-radius: 6px;
+    }
+    .loading { color: var(--muted); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div>
+        <div class="brand">WorkBuddy · Cloud Check-in</div>
+        <h1>每日打卡</h1>
+      </div>
+      <div id="statusPill" class="status-pill">加载中…</div>
+    </header>
+
+    <div class="grid">
+      <section class="card">
+        <div id="streakNum" class="streak-num">—</div>
+        <div class="streak-label">当前连续打卡（天）</div>
+        <div class="meta">
+          <div class="meta-item">
+            <strong id="totalNum">—</strong>
+            <span>累计打卡</span>
+          </div>
+          <div class="meta-item">
+            <strong id="lastDate">—</strong>
+            <span>最近一次</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="cal-head">
+          <h2 id="calTitle">日历</h2>
+          <div class="cal-nav">
+            <button type="button" id="prevMonth" aria-label="上个月">‹</button>
+            <button type="button" id="nextMonth" aria-label="下个月">›</button>
+          </div>
+        </div>
+        <div class="weekdays">
+          <span>一</span><span>二</span><span>三</span><span>四</span><span>五</span><span>六</span><span>日</span>
+        </div>
+        <div id="days" class="days"></div>
+      </section>
+
+      <section class="card history">
+        <h2>最近记录</h2>
+        <div id="historyList" class="history-list">
+          <div class="loading">读取 data/checkins.json …</div>
+        </div>
+      </section>
+    </div>
+
+    <footer>
+      由 GitHub Actions 每天 08:00（北京时间）自动打卡 · 数据来自仓库
+      <code>data/checkins.json</code>
+    </footer>
+  </div>
+
+  <script>
+    const state = {
+      checkins: new Set(),
+      lastCheckin: null,
+      view: null, // Date at first of month
+      tzOffset: 8 * 60, // Asia/Shanghai
+    };
+
+    function shanghaiToday() {
+      const now = new Date();
+      const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+      return new Date(utc + state.tzOffset * 60000);
+    }
+
+    function iso(d) {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${day}`;
+    }
+
+    function streakOf(set, todayIso) {
+      if (!set.size) return 0;
+      const [y, m, d] = todayIso.split("-").map(Number);
+      let cursor = new Date(y, m - 1, d);
+      const key = iso(cursor);
+      if (!set.has(key)) {
+        cursor = new Date(y, m - 1, d - 1);
+        if (!set.has(iso(cursor))) return 0;
+      }
+      let n = 0;
+      while (set.has(iso(cursor))) {
+        n += 1;
+        cursor = new Date(cursor.getFullYear(), cursor.getMonth(), cursor.getDate() - 1);
+      }
+      return n;
+    }
+
+    function renderStats() {
+      const today = iso(shanghaiToday());
+      const streak = streakOf(state.checkins, today);
+      const total = state.checkins.size;
+      document.getElementById("streakNum").textContent = String(streak);
+      document.getElementById("totalNum").textContent = String(total);
+      document.getElementById("lastDate").textContent = state.lastCheckin || "—";
+
+      const pill = document.getElementById("statusPill");
+      if (state.checkins.has(today)) {
+        pill.textContent = "今日已打卡";
+        pill.classList.add("ok");
+      } else {
+        pill.textContent = "今日待打卡";
+        pill.classList.remove("ok");
+      }
+    }
+
+    function renderCalendar() {
+      const view = state.view;
+      const title = `${view.getFullYear()} 年 ${view.getMonth() + 1} 月`;
+      document.getElementById("calTitle").textContent = title;
+
+      const year = view.getFullYear();
+      const month = view.getMonth();
+      const first = new Date(year, month, 1);
+      // Monday-first offset
+      const startPad = (first.getDay() + 6) % 7;
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const todayIso = iso(shanghaiToday());
+      const container = document.getElementById("days");
+      container.innerHTML = "";
+
+      for (let i = 0; i < startPad; i++) {
+        const cell = document.createElement("div");
+        cell.className = "day empty";
+        container.appendChild(cell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const key = iso(date);
+        const cell = document.createElement("div");
+        cell.className = "day";
+        cell.textContent = String(day);
+        if (state.checkins.has(key)) cell.classList.add("checked");
+        if (key === todayIso) cell.classList.add("today");
+        container.appendChild(cell);
+      }
+    }
+
+    function renderHistory() {
+      const list = [...state.checkins].sort().reverse().slice(0, 30);
+      const el = document.getElementById("historyList");
+      if (!list.length) {
+        el.innerHTML = '<div class="empty-tip">还没有打卡记录，等待第一次云端签到。</div>';
+        return;
+      }
+      el.innerHTML = list.map((d) => `<span class="chip">${d}</span>`).join("");
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch("../data/checkins.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(String(res.status));
+        const data = await res.json();
+        state.checkins = new Set(data.checkins || []);
+        state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
+      } catch (e) {
+        // GitHub Pages 根路径回退
+        try {
+          const res = await fetch("./data/checkins.json", { cache: "no-store" });
+          if (!res.ok) throw new Error(String(res.status));
+          const data = await res.json();
+          state.checkins = new Set(data.checkins || []);
+          state.lastCheckin = data.lastCheckin || (data.checkins || []).slice(-1)[0] || null;
+        } catch (e2) {
+          document.getElementById("historyList").innerHTML =
+            '<div class="empty-tip">无法加载数据。若使用 GitHub Pages，请从仓库根目录打开 index.html，或等待 Actions 完成首次打卡。</div>';
+        }
+      }
+      const today = shanghaiToday();
+      state.view = new Date(today.getFullYear(), today.getMonth(), 1);
+      renderStats();
+      renderCalendar();
+      renderHistory();
+    }
+
+    document.getElementById("prevMonth").addEventListener("click", () => {
+      state.view = new Date(state.view.getFullYear(), state.view.getMonth() - 1, 1);
+      renderCalendar();
+    });
+    document.getElementById("nextMonth").addEventListener("click", () => {
+      state.view = new Date(state.view.getFullYear(), state.view.getMonth() + 1, 1);
+      renderCalendar();
+    });
+
+    loadData();
+    // 每分钟刷新「今日状态」
+    setInterval(() => {
+      renderStats();
+    }, 60000);
+  </script>
+</body>
+</html>

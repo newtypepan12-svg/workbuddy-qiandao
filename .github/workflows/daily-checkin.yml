@@ -1,0 +1,54 @@
+name: Daily Check-in
+
+on:
+  schedule:
+    # 每天 08:00（Asia/Shanghai）= 00:00 UTC
+    - cron: "0 0 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-checkin
+  cancel-in-progress: false
+
+jobs:
+  checkin:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run check-in
+        id: checkin
+        run: |
+          python scripts/checkin.py
+          echo "streak=$(python -c "import json;print(json.load(open('data/last-run.json'))['streak'])")" >> "$GITHUB_OUTPUT"
+          echo "total=$(python -c "import json;print(json.load(open('data/last-run.json'))['total'])")" >> "$GITHUB_OUTPUT"
+          echo "date=$(python -c "import json;print(json.load(open('data/last-run.json'))['date'])")" >> "$GITHUB_OUTPUT"
+
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/checkins.json data/last-run.json
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "checkin: ${{ steps.checkin.outputs.date }} (streak ${{ steps.checkin.outputs.streak }})"
+            git push
+          fi
+
+      - name: Summary
+        run: |
+          echo "### WorkBuddy 签到" >> "$GITHUB_STEP_SUMMARY"
+          echo "- 日期: ${{ steps.checkin.outputs.date }}" >> "$GITHUB_STEP_SUMMARY"
+          echo "- 连续: ${{ steps.checkin.outputs.streak }} 天" >> "$GITHUB_STEP_SUMMARY"
+          echo "- 累计: ${{ steps.checkin.outputs.total }} 天" >> "$GITHUB_STEP_SUMMARY"
