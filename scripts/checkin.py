@@ -63,7 +63,12 @@ def load_credentials() -> dict | None:
             continue
         auth = data.get("auth") or {}
         account = data.get("account") or {}
-        tok = (auth.get("accessToken") or "").strip()
+        raw_tok = auth.get("accessToken")
+        # 新版 WorkBuddy 会把 token 加密成 {"$wbEncrypted":1,"envelope":"..."}
+        if isinstance(raw_tok, dict):
+            log(f"本机 token 已加密（{path.name}），本地无法直接使用；请走 GitHub Actions Secret")
+            continue
+        tok = (raw_tok or "").strip()
         if not tok:
             continue
         log(f"使用本机登录态: {path.name}")
