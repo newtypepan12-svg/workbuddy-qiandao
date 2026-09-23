@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-09-22T13:59:59+08:00",
+  "updatedAt": "2026-09-23T09:32:02+08:00",
   "source": "workbuddy-user-resource",
   "isPaidUser": false,
-  "total_remain": 4289.22,
+  "total_remain": 4389.22,
   "base_remain": 500.0,
-  "bonus_remain": 3789.22,
+  "bonus_remain": 3889.22,
   "base_total": 500.0,
-  "bonus_total": 3800.0,
+  "bonus_total": 3900.0,
   "expire_this_month": 2589.22,
-  "expire_after_month": 1700.0,
+  "expire_after_month": 1800.0,
   "never_expire": 0.0,
   "month": "2026-09",
   "packages": [
@@ -17,10 +17,10 @@
       "key": "activity",
       "name": "运营/活动奖励",
       "kind": "bonus",
-      "remain": 3789.22,
-      "total": 3800.0,
+      "remain": 3889.22,
+      "total": 3900.0,
       "used": 10.78,
-      "count": 22
+      "count": 23
     },
     {
       "code": "TCACA_code_008_cfWoLwvjU4",
@@ -217,29 +217,34 @@
       "remain": 100.0,
       "expireAt": "2026-10-22T08:18:37+08:00",
       "expireLabel": "2026-10-22 08:18"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-10-23T09:32:01+08:00",
+      "expireLabel": "2026-10-23 09:32"
     }
   ],
   "note": "基础=体验/套餐额度；平台奖励=活动/赠送/加量。免费与赠送积分均有到期日。",
   "today_credit": 100,
-  "daily_credit": 100,
-  "activity_total_credits": 500,
+  "daily_credit": null,
+  "activity_total_credits": null,
   "streak_bonus_credit": 0,
   "streak_bonus_days": 0,
-  "streak": 5,
-  "checkin_days": 1,
+  "streak": 6,
+  "checkin_days": 2,
   "checkin_dates": [
     "2026-09-22",
-    "2026-09-21",
-    "2026-09-20",
-    "2026-09-17",
-    "2026-09-16"
+    "2026-09-23"
   ],
-  "week_checkin_days": 2,
-  "season": 9,
-  "activity_name": "高校新生攻略",
-  "theme_name": "Buddy加油站",
-  "start_time": "2026-09-16 00:00:00",
-  "end_time": "2026-09-29 23:59:59",
+  "week_checkin_days": null,
+  "season": null,
+  "activity_name": null,
+  "theme_name": null,
+  "start_time": null,
+  "end_time": null,
   "base_credit": null,
   "bonus_credit": null,
   "platform_reward": null
