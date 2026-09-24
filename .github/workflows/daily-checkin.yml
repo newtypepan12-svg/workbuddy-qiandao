@@ -2,9 +2,10 @@ name: WorkBuddy Daily Check-in
 
 on:
   schedule:
-    # GitHub schedule 会严重延迟（实测可晚数小时），用高频幂等任务兜底
-    # 08:00–20:55（北京时间）每 55 分钟跑一次，已签会直接返回
-    - cron: "5 0,1,2,3,4,5,6,7,8,9,10,11,12 * * *"
+    # 北京时间每天 0 点起打卡（UTC+8）
+    # 00:00 和每小时 :05 各一次；幂等，已签会跳过
+    - cron: "0 16 * * *"   # 北京 00:00
+    - cron: "5 * * * *"    # 北京每小时 :05（全天）
   workflow_dispatch: {}
 
 permissions:
