@@ -1,47 +1,39 @@
 {
-  "updatedAt": "2026-09-30T20:27:04+08:00",
+  "updatedAt": "2026-10-01T02:25:16+08:00",
   "source": "workbuddy-user-resource",
   "isPaidUser": false,
-  "total_remain": 2993.6,
-  "base_remain": 493.6,
-  "bonus_remain": 2500.0,
+  "total_remain": 3100.0,
+  "base_remain": 500.0,
+  "bonus_remain": 2600.0,
   "base_total": 500.0,
-  "bonus_total": 2500.0,
-  "expire_this_month": 493.6,
-  "expire_after_month": 2500.0,
+  "bonus_total": 2600.0,
+  "expire_this_month": 3000.0,
+  "expire_after_month": 100.0,
   "never_expire": 0.0,
-  "month": "2026-09",
+  "month": "2026-10",
   "packages": [
     {
       "code": "TCACA_code_007_nzdH5h4Nl0",
       "key": "activity",
       "name": "运营/活动奖励",
       "kind": "bonus",
-      "remain": 2500.0,
-      "total": 2500.0,
+      "remain": 2600.0,
+      "total": 2600.0,
       "used": 0.0,
-      "count": 25
+      "count": 26
     },
     {
       "code": "TCACA_code_008_cfWoLwvjU4",
       "key": "freeMon",
       "name": "体验版月包",
       "kind": "base",
-      "remain": 493.6,
+      "remain": 500.0,
       "total": 500.0,
-      "used": 6.4,
+      "used": 0.0,
       "count": 1
     }
   ],
   "expiring_slices": [
-    {
-      "packageCode": "TCACA_code_008_cfWoLwvjU4",
-      "name": "体验版月包",
-      "kind": "base",
-      "remain": 493.6,
-      "expireAt": "2026-09-30T23:59:59+08:00",
-      "expireLabel": "2026-09-30 23:59"
-    },
     {
       "packageCode": "TCACA_code_007_nzdH5h4Nl0",
       "name": "运营/活动奖励",
@@ -241,25 +233,50 @@
       "remain": 100.0,
       "expireAt": "2026-10-31T03:20:55+08:00",
       "expireLabel": "2026-10-31 03:20"
+    },
+    {
+      "packageCode": "TCACA_code_008_cfWoLwvjU4",
+      "name": "体验版月包",
+      "kind": "base",
+      "remain": 500.0,
+      "expireAt": "2026-10-31T23:59:59+08:00",
+      "expireLabel": "2026-10-31 23:59"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 100.0,
+      "expireAt": "2026-11-01T02:25:14+08:00",
+      "expireLabel": "2026-11-01 02:25"
     }
   ],
   "note": "基础=体验/套餐额度；平台奖励=活动/赠送/加量。免费与赠送积分均有到期日。",
   "today_credit": 100,
-  "daily_credit": 100,
-  "activity_total_credits": 100,
+  "daily_credit": null,
+  "activity_total_credits": null,
   "streak_bonus_credit": 0,
   "streak_bonus_days": 0,
-  "streak": 1,
-  "checkin_days": 9,
+  "streak": 2,
+  "checkin_days": 10,
   "checkin_dates": [
-    "2026-09-30"
+    "2026-09-22",
+    "2026-09-23",
+    "2026-09-24",
+    "2026-09-25",
+    "2026-09-26",
+    "2026-09-27",
+    "2026-09-28",
+    "2026-09-29",
+    "2026-09-30",
+    "2026-10-01"
   ],
-  "week_checkin_days": 1,
-  "season": 10,
-  "activity_name": "Buddy应用",
-  "theme_name": "Buddy加油站",
-  "start_time": "2026-09-30 00:00:00",
-  "end_time": "2026-10-15 23:59:59",
+  "week_checkin_days": null,
+  "season": null,
+  "activity_name": null,
+  "theme_name": null,
+  "start_time": null,
+  "end_time": null,
   "base_credit": null,
   "bonus_credit": null,
   "platform_reward": null
