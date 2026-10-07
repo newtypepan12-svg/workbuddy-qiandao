@@ -1,8 +1,8 @@
 {
-  "date": "2026-10-07",
+  "date": "2026-10-08",
   "status": "ok",
-  "streak": 8,
-  "total": 16,
+  "streak": 9,
+  "total": 17,
   "credit": 100,
-  "report": "今日已签到（连续 8 天）"
+  "report": "签到成功 credit=100 streak=9"
 }
