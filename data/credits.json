@@ -1,14 +1,14 @@
 {
-  "updatedAt": "2026-10-16T15:04:15+08:00",
+  "updatedAt": "2026-10-16T20:22:10+08:00",
   "source": "workbuddy-user-resource",
   "isPaidUser": false,
-  "total_remain": 3299.43,
+  "total_remain": 3799.43,
   "base_remain": 500.0,
-  "bonus_remain": 2799.43,
+  "bonus_remain": 3299.43,
   "base_total": 500.0,
-  "bonus_total": 2800.0,
+  "bonus_total": 3300.0,
   "expire_this_month": 1699.43,
-  "expire_after_month": 1600.0,
+  "expire_after_month": 2100.0,
   "never_expire": 0.0,
   "month": "2026-10",
   "packages": [
@@ -17,10 +17,10 @@
       "key": "activity",
       "name": "运营/活动奖励",
       "kind": "bonus",
-      "remain": 2799.43,
-      "total": 2800.0,
+      "remain": 3299.43,
+      "total": 3300.0,
       "used": 0.57,
-      "count": 28
+      "count": 29
     },
     {
       "code": "TCACA_code_008_cfWoLwvjU4",
@@ -265,6 +265,14 @@
       "remain": 100.0,
       "expireAt": "2026-11-16T02:13:32+08:00",
       "expireLabel": "2026-11-16 02:13"
+    },
+    {
+      "packageCode": "TCACA_code_007_nzdH5h4Nl0",
+      "name": "运营/活动奖励",
+      "kind": "bonus",
+      "remain": 500.0,
+      "expireAt": "2026-11-16T15:39:29+08:00",
+      "expireLabel": "2026-11-16 15:39"
     }
   ],
   "note": "基础=体验/套餐额度；平台奖励=活动/赠送/加量。免费与赠送积分均有到期日。",
