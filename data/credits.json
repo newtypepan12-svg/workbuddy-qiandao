@@ -1,13 +1,13 @@
 {
-  "updatedAt": "2026-10-18T13:47:55+08:00",
+  "updatedAt": "2026-10-18T18:55:48+08:00",
   "source": "workbuddy-user-resource",
   "isPaidUser": false,
-  "total_remain": 3900.0,
+  "total_remain": 3884.11,
   "base_remain": 500.0,
-  "bonus_remain": 3400.0,
+  "bonus_remain": 3384.11,
   "base_total": 500.0,
   "bonus_total": 3400.0,
-  "expire_this_month": 1600.0,
+  "expire_this_month": 1584.11,
   "expire_after_month": 2300.0,
   "never_expire": 0.0,
   "month": "2026-10",
@@ -17,9 +17,9 @@
       "key": "activity",
       "name": "运营/活动奖励",
       "kind": "bonus",
-      "remain": 3400.0,
+      "remain": 3384.11000002,
       "total": 3400.0,
-      "used": 0.0,
+      "used": 15.88999998,
       "count": 30
     },
     {
@@ -38,7 +38,7 @@
       "packageCode": "TCACA_code_007_nzdH5h4Nl0",
       "name": "运营/活动奖励",
       "kind": "bonus",
-      "remain": 100.0,
+      "remain": 84.11000002,
       "expireAt": "2026-10-20T09:10:44+08:00",
       "expireLabel": "2026-10-20 09:10"
     },
